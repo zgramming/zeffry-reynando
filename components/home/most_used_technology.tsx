@@ -7,6 +7,7 @@ type MostUsedTechnology = {
   title: string;
   total: number;
 };
+
 const MostUsedTechnology = () => {
   const technologies: MostUsedTechnology[] = [
     {
@@ -29,6 +30,7 @@ const MostUsedTechnology = () => {
       total: 5,
     },
   ];
+
   return (
     <div className={`d-flex flex-column py-5`}>
       <div className="d-flex flex-row justify-content-between pb-5">

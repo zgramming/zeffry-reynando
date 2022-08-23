@@ -1,0 +1,15 @@
+.title {
+  text-align: center;
+  font-weight: bold;
+  font-size: 24pt;
+  color: #6b5b50;
+}
+
+.icons {
+  font-size: 40pt;
+  color: #6b5b50;
+}
+
+.icons:hover {
+  color: #524439;
+}
