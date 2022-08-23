@@ -10,3 +10,51 @@ body {
   background-color: #f9f2ed;
   font-family: "Roboto", sans-serif;
 }
+
+/* 
+	Background Color
+*/
+
+.bg-apps {
+  background-color: #6b5b50;
+}
+
+.bg-scaffold {
+  background-color: #f9f2ed;
+}
+
+/* 
+	Text Color
+*/
+
+.text-apps-bold {
+  color: #524439;
+}
+
+.text-apps-xbold {
+  color: #6b5b50;
+}
+
+.text-apps {
+  color: #f9f2ed;
+}
+
+.text-apps-shade-2 {
+  color: #c3bcb7;
+}
+
+.text-apps-shade-3 {
+  color: #8f8985;
+}
+
+.text-apps-shade-4 {
+  color: #5f5955;
+}
+
+.text-apps-shade-5 {
+  color: #332e2a;
+}
+
+.text-blue {
+  color: #277bc0;
+}
