@@ -1,0 +1,41 @@
+.card_company {
+  background-color: #f9f2ed;
+  box-shadow: 0 0 2px 2px rgba(107, 91, 80, 0.25);
+}
+.layout {
+  min-height: 100vh;
+  margin: 120px auto;
+}
+
+.title {
+  font-weight: bold;
+  color: #6b5b50;
+  font-size: 40pt;
+  font-family: "Maven Pro";
+  text-align: center;
+  margin-bottom: 5rem;
+}
+
+.name_company {
+  font-weight: bold;
+  font-size: 24pt;
+  color: #6b5b50;
+}
+
+.description_company {
+  line-height: 200%;
+  text-align: justify;
+  font-weight: 300;
+  font-size: 12pt;
+}
+.duration_job {
+  color: #6b5b50;
+  font-weight: 400;
+  font-size: 12pt;
+}
+
+.position_company {
+  color: #6b5b50;
+  font-weight: 400;
+  font-size: 16pt;
+}
