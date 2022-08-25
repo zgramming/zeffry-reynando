@@ -12,7 +12,7 @@ type ExperienceWork = {
   description: string;
 };
 
-const ExperienceWorkPage: NextPage = () => {
+const ExperienceWorkPage = (props: { children: React.ReactNode }) => {
   const experiencesWork: ExperienceWork[] = [
     {
       id: 1,

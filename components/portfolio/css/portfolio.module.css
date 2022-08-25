@@ -1,0 +1,60 @@
+.card_portfolio {
+  border-radius: 10px;
+  background-color: #f9f2ed;
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.25);
+  height: 500px;
+}
+
+.card_portfolio:hover {
+  cursor: pointer;
+  background-color: rgb(107, 91, 80, 0.25);
+  transition: 0.5s;
+}
+
+.dropdown_filter {
+  background-color: transparent;
+  border: 2px solid #6b5b50;
+  height: 60px;
+  width: 200px;
+}
+
+.layout {
+  margin: 120px auto;
+  text-align: center;
+  color: #6b5b50;
+  min-height: 100vh;
+}
+
+.image_portfolio {
+  height: 250px;
+  border-radius: 10px;
+}
+
+.input_search {
+  background-color: rgb(107, 91, 80, 0.25);
+  height: 60px;
+  border-radius: 60px;
+  color: #6b5b50;
+  padding: 8px 32px;
+  border: 1px solid #6b5b50;
+  font-weight: bold;
+}
+
+.input_search:focus {
+  background-color: rgb(107, 91, 80, 0.25);
+  color: #6b5b50;
+}
+
+.input_search::placeholder {
+  font-family: "Roboto";
+  font-size: 12pt;
+  font-weight: 400;
+}
+
+.title {
+  font-weight: bold;
+  color: #6b5b50;
+  font-size: 40pt;
+  font-family: "Maven Pro";
+  text-align: center;
+}
