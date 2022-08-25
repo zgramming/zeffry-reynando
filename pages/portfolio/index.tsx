@@ -3,7 +3,7 @@ import Link from "next/link";
 import React, { useState } from "react";
 
 import styled from "../../components/portfolio/css/portfolio.module.css";
-import { RouteHome, RoutePortfolioDetail } from "../../routes/my-route";
+import { RoutePortfolioDetail } from "../../routes/my-route";
 
 type Portfolio = {
   id: number;
@@ -93,7 +93,7 @@ const PortfolioPage = (props: { children?: React.ReactNode }) => {
       <div className="row">
         {portfolios.map((val) => (
           <div key={val.id} className="col-md-3 mb-5">
-            <Link href={RoutePortfolioDetail(val.id)}>
+            <Link href={RoutePortfolioDetail(val.id.toString())}>
               <div className={`card ${styled.card_portfolio} overflow-auto`}>
                 <div className="card-body">
                   <div className="d-flex flex-column h-100">

@@ -1,0 +1,54 @@
+.badge_technology {
+  font-weight: bold;
+  font-size: 16pt;
+}
+
+.description {
+  text-align: justify;
+  line-height: 200%;
+  font-weight: 300;
+  font-size: 14pt;
+}
+.image_banner {
+  width: 100%;
+  height: 600px;
+  position: relative;
+}
+
+.image_banner img {
+  border-radius: 10px;
+}
+
+.image_preview {
+  position: relative;
+  height: 400px;
+  width: 600px;
+}
+
+.image_preview img {
+  border-radius: 10px;
+}
+
+.layout {
+  color: #6b5b50;
+
+  min-height: 100vh;
+  margin: 120px auto;
+  max-width: 70%;
+  /* background-color: red; */
+}
+
+.title {
+  font-size: 40pt;
+  font-weight: bold;
+  font-family: "Maven Pro";
+}
+
+.source_icon {
+  font-size: 40pt;
+  color: #6b5b50;
+}
+
+.source_icon:hover {
+  color: #524439;
+}

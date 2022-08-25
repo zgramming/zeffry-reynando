@@ -1,8 +1,8 @@
 const RouteHome = "/";
 const RouteExperienceWork = "/experience-work";
 const RoutePortfolio = "/portfolio";
-const RoutePortfolioDetail = (id: number) => {
-  return `/portfolio/${id}`;
+const RoutePortfolioDetail = (slug: string) => {
+  return `/portfolio/${slug}`;
 };
 
 export { RouteHome, RouteExperienceWork, RoutePortfolio, RoutePortfolioDetail };
