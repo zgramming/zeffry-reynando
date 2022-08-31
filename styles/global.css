@@ -5,9 +5,8 @@ font-family = 'Maven Pro'
 font-family = 'Roboto'
 */
 
-html,
 body {
-  background-color: #f9f2ed;
+  background-color: #f9f2ed !important;
   font-family: "Roboto", sans-serif;
 }
 
