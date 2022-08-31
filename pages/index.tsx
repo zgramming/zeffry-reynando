@@ -59,7 +59,6 @@ export const getStaticProps: GetStaticProps = async (context) => {
     `${url}/home/most_used_technology`
   );
 
-  console.log(mostUsedTechnology.data.data);
   return {
     props: {
       profile: profile.data.data as ProfileInterface,
