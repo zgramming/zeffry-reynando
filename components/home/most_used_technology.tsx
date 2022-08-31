@@ -1,36 +1,11 @@
 import styled from "../home/css/home.module.css";
 import Image from "next/image";
+import { MostUsedTechnologyInterface } from "../../interface/most_used_technology/most_used_technology_interface";
 
-type MostUsedTechnology = {
-  id: number;
-  imageUrl: string;
-  title: string;
-  total: number;
+type Parameter = {
+  mostUsedTechnology: MostUsedTechnologyInterface[];
 };
-
-const MostUsedTechnology = () => {
-  const technologies: MostUsedTechnology[] = [
-    {
-      id: 1,
-      imageUrl: "/images/flutter-logo.png",
-      title: "Flutter",
-      total: 10,
-    },
-    {
-      id: 2,
-      imageUrl: "/images/flutter-logo.png",
-      title: "Codeigniter",
-      total: 3,
-    },
-    { id: 3, imageUrl: "/images/flutter-logo.png", title: "Laravel", total: 4 },
-    {
-      id: 4,
-      imageUrl: "/images/flutter-logo.png",
-      title: "Rest API",
-      total: 5,
-    },
-  ];
-
+const MostUsedTechnology = (props: Parameter) => {
   return (
     <div className={`d-flex flex-column py-5`}>
       <div className="d-flex flex-row justify-content-between pb-5">
@@ -43,28 +18,25 @@ const MostUsedTechnology = () => {
       </div>
       <div className="layout_technology">
         <div className="row">
-          {technologies.map((technology, index) => (
+          {props.mostUsedTechnology.map((technology, index) => (
             <div key={technology.id} className="col-md-3">
               <div className={`card ${styled.card_technology} mb-5`}>
                 <div className="card-body">
                   <div className="d-flex flex-column h-100 w-100">
                     <div className="d-flex flex-row align-items-center">
                       <Image
-                        src={"/images/flutter-logo.png"}
+                        src={"/images/application.png"}
                         width={64}
                         height={64}
                         alt="Disini flutter logo"
                       />
                       <span className={`${styled.title_technology} `}>
-                        {technology.title}
+                        {technology.name}
                       </span>
                     </div>
-                    <div
-                      className="my-auto"
-                      //   style={{ backgroundColor: "red" }}
-                    >
+                    <div className="my-auto">
                       <span className={`${styled.text_count_technology}`}>
-                        {technology.total}
+                        {technology.total_technology_used}
                       </span>
                       <span>Created Apps</span>
                     </div>

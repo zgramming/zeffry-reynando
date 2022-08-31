@@ -1,15 +1,14 @@
+import { MyStatisticsInterface } from "../../interface/my_statistics/my_statistics_interface";
 import styled from "../home/css/home.module.css";
 
-const MyStatistics = () => {
+type Parameter = {
+  statistics: MyStatisticsInterface;
+};
+const MyStatistics = (props: Parameter) => {
   return (
     <div className={`d-flex flex-column py-5`}>
       <div className="d-flex flex-row justify-content-between pb-5">
         <h3>My Statistics</h3>
-        <h6>
-          <a href="#" className="text-blue">
-            See more statistics
-          </a>
-        </h6>
       </div>
       <div className="layout_statistics">
         <div className="d-flex justify-content-center">
@@ -20,7 +19,7 @@ const MyStatistics = () => {
                 <span
                   className={`d-flex flex-column justify-content-center fw-bold h-100 ${styled.text_count_statistics}`}
                 >
-                  3
+                  {props.statistics.total_application}
                 </span>
               </div>
             </div>
@@ -32,7 +31,7 @@ const MyStatistics = () => {
                 <span
                   className={`d-flex flex-column justify-content-center fw-bold h-100 ${styled.text_count_statistics}`}
                 >
-                  3
+                  {props.statistics.total_technology_used}
                 </span>
               </div>
             </div>
@@ -44,7 +43,7 @@ const MyStatistics = () => {
                 <span
                   className={`d-flex flex-column justify-content-center fw-bold h-100 ${styled.text_count_statistics}`}
                 >
-                  3
+                  {props.statistics.total_work_experience}
                 </span>
               </div>
             </div>
