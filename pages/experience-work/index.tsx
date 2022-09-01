@@ -1,9 +1,10 @@
-import { GetStaticProps, NextPage } from "next";
-import Image from "next/image";
-import styled from "../../components/experience-work/css/experience-work.module.css";
 import axios from "axios";
-import { WorkExperienceInterface } from "../../interface/work_experience/work_experience_interface";
+import { GetStaticProps } from "next";
+import Image from "next/image";
 import React from "react";
+
+import styled from "../../components/experience-work/css/experience-work.module.css";
+import { WorkExperienceInterface } from "../../interface/work_experience/work_experience_interface";
 
 type Parameter = {
   workExperience: WorkExperienceInterface[];

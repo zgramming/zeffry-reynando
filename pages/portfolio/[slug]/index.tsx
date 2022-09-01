@@ -3,6 +3,7 @@ import { GetStaticPaths, GetStaticProps } from "next";
 import Image from "next/image";
 import { ParsedUrlQuery } from "querystring";
 import React from "react";
+
 import styled from "../../../components/portfolio_detail/portfolio_detail.module.css";
 import { PortfolioInterface } from "../../../interface/portfolio/portfolio_interface";
 import { PortfolioDetailInterface } from "../../../interface/portfolio_detail/portfolio_detail_interface";

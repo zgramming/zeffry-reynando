@@ -1,14 +1,13 @@
-import type { GetStaticProps, NextPage } from "next";
+import type { GetStaticProps } from "next";
+import axios from "axios";
 import { Button } from "react-bootstrap";
 
-import MostUsedTechnology from "../components/home/most_used_technology";
 import styled from "../components/home/css/home.module.css";
+import MostUsedTechnology from "../components/home/most_used_technology";
 import MyStatistics from "../components/home/my_statistics";
-import axios from "axios";
-
-import { ProfileInterface } from "../interface/profile/profile_interface";
-import { MyStatisticsInterface } from "../interface/my_statistics/my_statistics_interface";
 import { MostUsedTechnologyInterface } from "../interface/most_used_technology/most_used_technology_interface";
+import { MyStatisticsInterface } from "../interface/my_statistics/my_statistics_interface";
+import { ProfileInterface } from "../interface/profile/profile_interface";
 
 type Param = {
   profile: ProfileInterface;

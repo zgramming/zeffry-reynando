@@ -1,14 +1,13 @@
+import axios from "axios";
 import { GetStaticProps } from "next";
 import Image from "next/image";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
-import axios from "axios";
 
 import styled from "../../components/portfolio/css/portfolio.module.css";
-import { RoutePortfolioDetail } from "../../routes/my-route";
-import { PortfolioInterface } from "../../interface/portfolio/portfolio_interface";
 import { MasterTypeApplicationInterface } from "../../interface/master_data/type_application_interface";
-import { resourceLimits } from "worker_threads";
+import { PortfolioInterface } from "../../interface/portfolio/portfolio_interface";
+import { RoutePortfolioDetail } from "../../routes/my-route";
 
 type Parameter = {
   children?: React.ReactNode;
