@@ -2,7 +2,7 @@ import { GetStaticProps, NextPage } from "next";
 import Image from "next/image";
 import styled from "../../components/experience-work/css/experience-work.module.css";
 import axios from "axios";
-import { WorkExperienceInterface } from "../../interface/work_experience/work_experience";
+import { WorkExperienceInterface } from "../../interface/work_experience/work_experience_interface";
 import React from "react";
 
 type Parameter = {
@@ -27,23 +27,25 @@ const ExperienceItem = (props: { exp: WorkExperienceInterface }) => {
     return { __html: description };
   };
 
-  const startDate = new Date(props.exp.start_date).toLocaleDateString();
-  const endDate = props.exp.end_date
-    ? new Date(props.exp.end_date).toLocaleDateString()
-    : "Current";
+  const dateReadable = (dateString?: string) => {
+    if (!dateString) return "Now";
+    const date = new Date(dateString);
+    const year = date.getFullYear();
+    const month = date.toLocaleString("default", { month: "long" });
+    const d = date.getDate();
+    return `${d} ${month} ${year}`;
+  };
   return (
     <div key={props.exp.id} className="col-md-12 mb-5">
       <div className="d-flex flex-row align-items-start">
-        <div className="card me-5 bg-scaffold shadow-sm">
-          <div className="card-body">
-            <Image
-              src={""}
-              //   src={props.exp.company_image ?? ""}
-              height={60}
-              width={60}
-              alt={props.exp.company.name}
-            />
-          </div>
+        <div className="me-5">
+          <Image
+            src={props.exp.company_image ?? ""}
+            height={120}
+            width={120}
+            alt={props.exp.company.name}
+            className={"rounded shadow-sm"}
+          />
         </div>
         <div className={`card ${styled.card_company} w-100`}>
           <div className="card-body">
@@ -53,7 +55,9 @@ const ExperienceItem = (props: { exp: WorkExperienceInterface }) => {
                   {props.exp.company.name}
                 </div>
                 <span className={`${styled.duration_job}`}>
-                  {`${startDate} - ${endDate}`}
+                  {`${dateReadable(props.exp.start_date)} - ${dateReadable(
+                    props.exp.end_date
+                  )}`}
                 </span>
               </div>
               <div className={`${styled.position_company} mb-3`}>
@@ -74,19 +78,25 @@ const ExperienceItem = (props: { exp: WorkExperienceInterface }) => {
 };
 
 export const getStaticProps: GetStaticProps = async (context) => {
-  const url =
-    process.env["NODE_ENV"] == "development"
-      ? process.env["BASE_API_LOCALHOST_URL"]
-      : process.env["BASE_API_URL"];
+  try {
+    const url =
+      process.env["NODE_ENV"] == "development"
+        ? process.env["BASE_API_LOCALHOST_URL"]
+        : process.env["BASE_API_URL"];
 
-  const workExperience = await axios.get(`${url}/work-experience`);
-  const arrWorkExperience = workExperience.data
-    .data as WorkExperienceInterface[];
-  return {
-    props: {
-      workExperience: arrWorkExperience,
-    },
-  };
+    const workExperience = await axios.get(`${url}/work-experience`);
+    const arrWorkExperience = workExperience.data
+      .data as WorkExperienceInterface[];
+    return {
+      props: {
+        workExperience: arrWorkExperience,
+      },
+    };
+  } catch (error) {
+    return {
+      notFound: true,
+    };
+  }
 };
 
 export default ExperienceWorkPage;

@@ -2,8 +2,8 @@ export interface WorkExperienceInterface {
   id: number;
   job_id: number;
   company_id: number;
-  start_date: Date;
-  end_date?: Date;
+  start_date: string;
+  end_date?: string;
   description: string;
   company_image: string;
   created_at: Date;

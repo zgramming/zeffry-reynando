@@ -1,68 +1,51 @@
+import { GetStaticProps } from "next";
 import Image from "next/image";
 import Link from "next/link";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import axios from "axios";
 
 import styled from "../../components/portfolio/css/portfolio.module.css";
 import { RoutePortfolioDetail } from "../../routes/my-route";
+import { PortfolioInterface } from "../../interface/portfolio/portfolio_interface";
+import { MasterTypeApplicationInterface } from "../../interface/master_data/type_application_interface";
+import { resourceLimits } from "worker_threads";
 
-type Portfolio = {
-  id: number;
-  imageUrl?: string;
-  title: string;
-  description: string;
+type Parameter = {
+  children?: React.ReactNode;
+  portfolio: PortfolioInterface[];
+  masterTypeApplication: MasterTypeApplicationInterface[];
 };
 
-type FilterType = {
-  id: number;
-  title: string;
-};
+const PortfolioPage = (props: Parameter) => {
+  const [search, setSearch] = useState<string>("");
+  const [filteredPortfolio, setFilteredPortfolio] = useState(props.portfolio);
+  const [selectedMasterTypeApplication, setSelectedMasterTypeApplication] =
+    useState<number>();
 
-const PortfolioPage = (props: { children?: React.ReactNode }) => {
-  const portfolios: Portfolio[] = [
-    {
-      id: 1,
-      title: "Basa Basi",
-      imageUrl: "/images/flutter-logo.png",
-      description:
-        "Chat Application made by Flutter and using Firebase as a backend",
-    },
-    {
-      id: 2,
-      title: "Basa Basi",
-      imageUrl: "/images/flutter-logo.png",
-      description:
-        "Chat Application made by Flutter and using Firebase as a backend",
-    },
-    {
-      id: 3,
-      title: "Basa Basi",
-      imageUrl: "/images/flutter-logo.png",
-      description:
-        "Chat Application made by Flutter and using Firebase as a backend",
-    },
-    {
-      id: 4,
-      title: "Basa Basi",
-      imageUrl: "/images/flutter-logo.png",
-      description:
-        "Chat Application made by Flutter and using Firebase as a backend",
-    },
-    {
-      id: 5,
-      title: "Basa Basi",
-      imageUrl: "/images/flutter-logo.png",
-      description:
-        "Chat Application made by Flutter and using Firebase as a backendChat ",
-    },
+  const masterTypeApplication = [
+    { id: 0, name: "All" },
+    ...props.masterTypeApplication,
   ];
 
-  const filterTypes: FilterType[] = [
-    { id: 1, title: "Mobile Apps" },
-    { id: 2, title: "Web Apps" },
-    { id: 3, title: "Rest API" },
-  ];
+  useEffect(() => {
+    setFilteredPortfolio((prevState) => {
+      const result = props.portfolio.filter((val) => {
+        const searchQuery = val.title
+          .toLowerCase()
+          .includes(search.toLowerCase());
 
-  const [search, setSearch] = useState<string>();
+        const masterTypeQuery =
+          selectedMasterTypeApplication === 0
+            ? true
+            : selectedMasterTypeApplication === val.type_application_id;
+
+        return searchQuery && masterTypeQuery;
+      });
+
+      return result;
+    });
+    return () => {};
+  }, [props.portfolio, search, selectedMasterTypeApplication]);
 
   return (
     <div className={`${styled.layout} px-5`}>
@@ -75,41 +58,51 @@ const PortfolioPage = (props: { children?: React.ReactNode }) => {
         value={search}
         placeholder="Search something..."
         className={`form-control ${styled.input_search}`}
-        onChange={(e) =>
-          setSearch((prevState) => (e.target as HTMLInputElement).value)
-        }
+        onChange={(e) => {
+          setSearch((prevState) => e.target.value.toLowerCase());
+        }}
       />
       <select
         className={`form-select ${styled.dropdown_filter} ms-auto my-5`}
         aria-label="Default select example"
+        value={selectedMasterTypeApplication}
+        onChange={(e) => {
+          setSelectedMasterTypeApplication((prevState) =>
+            parseInt(e.target.value)
+          );
+        }}
       >
-        {filterTypes.map((val) => (
+        {masterTypeApplication.map((val) => (
           <option key={val.id} value={val.id}>
-            {val.title}
+            {val.name}
           </option>
         ))}
       </select>
 
       <div className="row">
-        {portfolios.map((val) => (
+        {filteredPortfolio.map((val) => (
           <div key={val.id} className="col-md-3 mb-5">
             <Link href={RoutePortfolioDetail(val.id.toString())}>
               <div className={`card ${styled.card_portfolio} overflow-auto`}>
                 <div className="card-body">
-                  <div className="d-flex flex-column h-100">
+                  <div className="d-flex flex-column">
                     <div
-                      className={`d-flex flex-column justify-content-center ${styled.image_portfolio} mb-3`}
+                      className={`d-flex flex-column ${styled.image_portfolio} mb-3`}
                     >
                       <Image
-                        src={val.imageUrl ?? ""}
-                        alt="image"
+                        src={val.banner_image ?? ""}
+                        alt={val.title}
                         width={"100%"}
                         height={"100%"}
-                        objectFit="contain"
+                        layout={"responsive"}
+                        objectFit={"cover"}
+                        className={"rounded"}
                       />
                     </div>
                     <h1 className="text-start fw-bold">{val.title}</h1>
-                    <small className="text-start">{val.description}</small>
+                    <small className="text-start">
+                      {val.short_description}
+                    </small>
                   </div>
                 </div>
               </div>
@@ -119,6 +112,37 @@ const PortfolioPage = (props: { children?: React.ReactNode }) => {
       </div>
     </div>
   );
+};
+
+export const getStaticProps: GetStaticProps = async (context) => {
+  try {
+    const url =
+      process.env["NODE_ENV"] == "development"
+        ? process.env["BASE_API_LOCALHOST_URL"]
+        : process.env["BASE_API_URL"];
+
+    const portfolio = await axios.get(`${url}/portfolio`);
+    const masterTypeApplication = await axios.get(
+      `${url}/master-data/type-application`
+    );
+
+    const arrPortfolio = portfolio.data.data as PortfolioInterface[];
+    const arrMasterTypeApplication = masterTypeApplication.data
+      .data as MasterTypeApplicationInterface[];
+
+    const props: Parameter = {
+      portfolio: arrPortfolio,
+      masterTypeApplication: arrMasterTypeApplication,
+    };
+
+    return {
+      props: props,
+    };
+  } catch (error) {
+    return {
+      notFound: true,
+    };
+  }
 };
 
 export default PortfolioPage;

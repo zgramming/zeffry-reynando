@@ -48,25 +48,29 @@ const Home = (props: Param) => {
 };
 
 export const getStaticProps: GetStaticProps = async (context) => {
-  const url =
-    process.env["NODE_ENV"] == "development"
-      ? process.env["BASE_API_LOCALHOST_URL"]
-      : process.env["BASE_API_URL"];
+  try {
+    const url =
+      process.env["NODE_ENV"] == "development"
+        ? process.env["BASE_API_LOCALHOST_URL"]
+        : process.env["BASE_API_URL"];
 
-  const profile = await axios.get(`${url}/home/profile`);
-  const myStatistics = await axios.get(`${url}/home/my_statistic`);
-  const mostUsedTechnology = await axios.get(
-    `${url}/home/most_used_technology`
-  );
+    const profile = await axios.get(`${url}/home/profile`);
+    const myStatistics = await axios.get(`${url}/home/my_statistic`);
+    const mostUsedTechnology = await axios.get(
+      `${url}/home/most_used_technology`
+    );
 
-  return {
-    props: {
-      profile: profile.data.data as ProfileInterface,
-      statistics: myStatistics.data.data as MyStatisticsInterface,
-      mostUsedTechnology: mostUsedTechnology.data
-        .data as MostUsedTechnologyInterface,
-    },
-  };
+    return {
+      props: {
+        profile: profile.data.data as ProfileInterface,
+        statistics: myStatistics.data.data as MyStatisticsInterface,
+        mostUsedTechnology: mostUsedTechnology.data
+          .data as MostUsedTechnologyInterface,
+      },
+    };
+  } catch (error) {
+    return { notFound: true };
+  }
 };
 
 // export const getStaticPaths: GetStaticPaths = async () => {
