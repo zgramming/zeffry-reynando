@@ -1,146 +1,92 @@
+import axios from "axios";
+import { GetStaticPaths, GetStaticProps } from "next";
 import Image from "next/image";
+import { ParsedUrlQuery } from "querystring";
+import React from "react";
 import styled from "../../../components/portfolio_detail/portfolio_detail.module.css";
+import { PortfolioInterface } from "../../../interface/portfolio/portfolio_interface";
+import { PortfolioDetailInterface } from "../../../interface/portfolio_detail/portfolio_detail_interface";
 
-type SourcePortfolio = {
-  id: number;
-  title: string;
-  code: string;
-  url: string;
+type Parameter = {
+  portfolio: PortfolioDetailInterface;
+  children?: React.ReactNode;
 };
 
-type PortfolioImages = {
-  id: number;
-  imageUrl: string;
-};
+const PortfolioDetailPage = (props: Parameter) => {
+  const convertDescriptionIntoHtml = (description: string) => {
+    return { __html: description };
+  };
 
-type PortfolioTechnology = { id: number; title: string; image?: string };
-
-type PortfolioDetail = {
-  id: number;
-  imageBanner: string;
-  title: string;
-  description: string;
-  type: string;
-  technologies: PortfolioTechnology[];
-  sources: SourcePortfolio[];
-  images?: PortfolioImages[];
-};
-
-const portfolio: PortfolioDetail = {
-  id: 1,
-  imageBanner: "/images/banner.jpg",
-  title: "Basa Basi",
-  type: "Mobile Apps",
-  technologies: [
-    { id: 1, title: "Flutter" },
-    { id: 2, title: "Firebase" },
-    { id: 3, title: "Google Maps" },
-  ],
-  description: `Lorem ipsum dolor sit amet, consectetur adipiscing elit. Iaculis in penatibus nunc curabitur pretium aliquam nisi in. Eget ut mi euismod fermentum nulla. Etiam id cursus enim ultrices dictum lorem vel ipsum. Mus praesent convallis varius cras lorem eu. At convallis proin massa congue nulla purus, praesent pellentesque. Vitae, praesent amet senectus arcu. Dolor, posuere nam vel velit sit pharetra convallis quam egestas.
-  Sed venenatis egestas orci odio eget auctor. Curabitur nibh in gravida integer. Leo lacinia purus in bibendum eu eget nunc aliquam lectus. Etiam egestas non aliquet sagittis. Arcu quis id neque, lacinia dictumst. Donec quis diam, maecenas etiam blandit mauris molestie tristique.
-  Vel amet, ullamcorper sit adipiscing faucibus. Ac malesuada vel sagittis, vulputate scelerisque sollicitudin. Nunc, condimentum ac suspendisse `,
-  sources: [
-    {
-      id: 1,
-      code: "github",
-      title: "Github",
-      url: "https://github.com/zgramming",
-    },
-    {
-      id: 2,
-      code: "website",
-      title: "Website",
-      url: "https://github.com/zgramming",
-    },
-  ],
-  images: [
-    { id: 1, imageUrl: "/images/banner.jpg" },
-    { id: 2, imageUrl: "/images/banner.jpg" },
-    { id: 3, imageUrl: "/images/banner.jpg" },
-    { id: 4, imageUrl: "/images/banner.jpg" },
-    { id: 5, imageUrl: "/images/banner.jpg" },
-    { id: 6, imageUrl: "/images/banner.jpg" },
-    { id: 7, imageUrl: "/images/banner.jpg" },
-    { id: 8, imageUrl: "/images/banner.jpg" },
-    { id: 9, imageUrl: "/images/banner.jpg" },
-    { id: 10, imageUrl: "/images/banner.jpg" },
-  ],
-};
-const PortfolioDetailPage = (props: { children?: React.ReactNode }) => {
   return (
     <div className={`${styled.layout}`}>
       <div className="d-flex flex-column">
         <div className={`${styled.image_banner} mb-5`}>
           <Image
-            src={portfolio.imageBanner}
+            src={props.portfolio.banner_image}
             height="100%"
             width="100%"
-            alt={`${portfolio.title}`}
+            alt={`${props.portfolio.title}`}
             layout="fill"
             objectFit="fill"
           />
         </div>
         <div className="d-flex justify-content-between align-items-center mb-3">
-          <h1 className={`${styled.title}`}>{portfolio.title}</h1>
-          <h3>{portfolio.type}</h3>
+          <h1 className={`${styled.title}`}>{props.portfolio.title}</h1>
+          <h3>{props.portfolio.type.name}</h3>
         </div>
         <h5 className="fw-normal">Technology : </h5>
         <div className="d-flex flex-wrap mb-5">
-          {portfolio.technologies.map((val) => (
+          {props.portfolio.other_technology.map((val) => (
             <span
               key={val.id}
               className={`badge ${styled.badge_technology} rounded-pill bg-success me-2`}
             >
-              {val.title}
+              {val.technology.name}
             </span>
           ))}
         </div>
-        <p className={`${styled.description} mb-5`}>{portfolio.description}</p>
+        <p
+          className={`${styled.description} mb-5`}
+          dangerouslySetInnerHTML={convertDescriptionIntoHtml(
+            props.portfolio.full_description
+          )}
+        />
         <div className="d-flex flex-column mb-5">
           <h3 className="mb-2">Source</h3>
           <div className="d-flex flex-wrap">
-            {portfolio.sources.map((val) => {
-              if (val.code === "github") {
-                return (
-                  <a
-                    href={val.url}
-                    rel="noreferrer"
-                    target="_blank"
-                    className={`${styled.source_icon} me-5`}
-                  >
-                    <i className={`fab fa-github`}></i>
-                  </a>
-                );
-              }
-
-              if (val.code === "website") {
-                return (
-                  <a
-                    href={val.url}
-                    rel="noreferrer"
-                    target="_blank"
-                    className={`${styled.source_icon} me-5`}
-                  >
-                    <i className={`fas fa-globe`}></i>
-                  </a>
-                );
-              }
-
-              return null;
-            })}
+            {props.portfolio.github_url && (
+              <a
+                href={props.portfolio.github_url}
+                rel="noreferrer"
+                target="_blank"
+                className={`${styled.source_icon} me-5`}
+              >
+                <i className={`fab fa-github`}></i>
+              </a>
+            )}
+            {props.portfolio.web_url && (
+              <a
+                href={props.portfolio.web_url}
+                rel="noreferrer"
+                target="_blank"
+                className={`${styled.source_icon} me-5`}
+              >
+                <i className={`fas fa-globe`}></i>
+              </a>
+            )}
           </div>
         </div>
         <div className="d-flex flex-column mb-5">
           <h3 className="mb-2">Preview Application</h3>
           <div className="row flex-nowrap overflow-auto">
-            {portfolio.images?.map((val) => {
+            {props.portfolio.preview_images?.map((val) => {
               return (
                 <div key={val.id} className={`${styled.image_preview} me-5`}>
                   <Image
-                    src={val.imageUrl}
+                    src={val.image}
                     height="100%"
                     width="100%"
-                    alt={val.imageUrl}
+                    alt={val.image}
                     layout="fill"
                     objectFit="fill"
                   />
@@ -152,6 +98,58 @@ const PortfolioDetailPage = (props: { children?: React.ReactNode }) => {
       </div>
     </div>
   );
+};
+
+export const getStaticPaths: GetStaticPaths = async (context) => {
+  const url =
+    process.env["NODE_ENV"] == "development"
+      ? process.env["BASE_API_LOCALHOST_URL"]
+      : process.env["BASE_API_URL"];
+
+  const portfolio = await axios.get(`${url}/portfolio`);
+  const arrPortfolio: PortfolioInterface[] = portfolio.data.data;
+  const slug = arrPortfolio.map(function (val) {
+    return {
+      params: {
+        slug: val.title_slug,
+      },
+    };
+  });
+
+  return {
+    paths: slug,
+    fallback: "blocking",
+  };
+};
+
+interface IParams extends ParsedUrlQuery {
+  slug: string;
+}
+
+export const getStaticProps: GetStaticProps = async (context) => {
+  try {
+    const { slug } = context.params as IParams;
+    const url =
+      process.env["NODE_ENV"] == "development"
+        ? process.env["BASE_API_LOCALHOST_URL"]
+        : process.env["BASE_API_URL"];
+
+    const portfolio = await axios.get(`${url}/portfolio/${slug}`);
+    if (!portfolio.data.data) throw "Data tidak ditemukan";
+
+    const data: PortfolioDetailInterface = portfolio.data.data;
+    const props = {
+      portfolio: data,
+    };
+
+    return {
+      props: props,
+    };
+  } catch (error) {
+    return {
+      notFound: true,
+    };
+  }
 };
 
 export default PortfolioDetailPage;

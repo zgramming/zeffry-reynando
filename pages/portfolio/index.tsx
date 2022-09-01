@@ -20,7 +20,7 @@ const PortfolioPage = (props: Parameter) => {
   const [search, setSearch] = useState<string>("");
   const [filteredPortfolio, setFilteredPortfolio] = useState(props.portfolio);
   const [selectedMasterTypeApplication, setSelectedMasterTypeApplication] =
-    useState<number>();
+    useState<number>(0);
 
   const masterTypeApplication = [
     { id: 0, name: "All" },
@@ -82,7 +82,7 @@ const PortfolioPage = (props: Parameter) => {
       <div className="row">
         {filteredPortfolio.map((val) => (
           <div key={val.id} className="col-md-3 mb-5">
-            <Link href={RoutePortfolioDetail(val.id.toString())}>
+            <Link href={RoutePortfolioDetail(val.title_slug)}>
               <div className={`card ${styled.card_portfolio} overflow-auto`}>
                 <div className="card-body">
                   <div className="d-flex flex-column">
