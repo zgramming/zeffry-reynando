@@ -14,6 +14,10 @@ type Parameter = {
   children?: React.ReactNode;
 };
 
+interface IParams extends ParsedUrlQuery {
+  slug: string;
+}
+
 const PortfolioDetailPage = (props: Parameter) => {
   const convertDescriptionIntoHtml = (description: string) => {
     return { __html: description };
@@ -113,32 +117,6 @@ const PortfolioDetailPage = (props: Parameter) => {
   );
 };
 
-export const getStaticPaths: GetStaticPaths = async (context) => {
-  const url =
-    process.env["NODE_ENV"] == "development"
-      ? process.env["BASE_API_LOCALHOST_URL"]
-      : process.env["BASE_API_URL"];
-
-  const portfolio = await axios.get(`${url}/portfolio`);
-  const arrPortfolio: PortfolioInterface[] = portfolio.data.data;
-  const slug = arrPortfolio.map(function (val) {
-    return {
-      params: {
-        slug: val.title_slug,
-      },
-    };
-  });
-
-  return {
-    paths: slug,
-    fallback: "blocking",
-  };
-};
-
-interface IParams extends ParsedUrlQuery {
-  slug: string;
-}
-
 export const getStaticProps: GetStaticProps = async (context) => {
   try {
     const { slug } = context.params as IParams;
@@ -163,6 +141,28 @@ export const getStaticProps: GetStaticProps = async (context) => {
       notFound: true,
     };
   }
+};
+
+export const getStaticPaths: GetStaticPaths = async (context) => {
+  const url =
+    process.env["NODE_ENV"] == "development"
+      ? process.env["BASE_API_LOCALHOST_URL"]
+      : process.env["BASE_API_URL"];
+
+  const portfolio = await axios.get(`${url}/portfolio`);
+  const arrPortfolio: PortfolioInterface[] = portfolio.data.data;
+  const slug = arrPortfolio.map(function (val) {
+    return {
+      params: {
+        slug: val.title_slug,
+      },
+    };
+  });
+
+  return {
+    paths: slug,
+    fallback: "blocking",
+  };
 };
 
 export default PortfolioDetailPage;
