@@ -10,41 +10,47 @@ const MyStatistics = (props: Parameter) => {
       <div className="d-flex flex-row justify-content-between pb-5">
         <h3>My Statistics</h3>
       </div>
-      <div className="layout_statistics">
-        <div className="d-flex justify-content-center">
-          <div className={`card ${styled.card_statistics} mx-3`}>
-            <div className="card-body">
-              <div className="d-flex flex-column h-100">
-                <h3>Total Application</h3>
-                <span
-                  className={`d-flex flex-column justify-content-center fw-bold h-100 ${styled.text_count_statistics}`}
-                >
-                  {props.statistics.total_application}
-                </span>
+      <div className={`${styled.layout_statistics}`}>
+        <div className="row">
+          <div className="col-12 col-md-4">
+            <div className={`card ${styled.card_statistics}`}>
+              <div className="card-body">
+                <div className="d-flex flex-column h-100">
+                  <h3>Total Application</h3>
+                  <span
+                    className={`d-flex flex-column justify-content-center fw-bold h-100 ${styled.text_count_statistics}`}
+                  >
+                    {props.statistics.total_application}
+                  </span>
+                </div>
               </div>
             </div>
           </div>
-          <div className={`card ${styled.card_statistics} mx-3`}>
-            <div className="card-body">
-              <div className="d-flex flex-column h-100">
-                <h3>Technology Used</h3>
-                <span
-                  className={`d-flex flex-column justify-content-center fw-bold h-100 ${styled.text_count_statistics}`}
-                >
-                  {props.statistics.total_technology_used}
-                </span>
+          <div className="col-12 col-md-4">
+            <div className={`card ${styled.card_statistics}`}>
+              <div className="card-body">
+                <div className="d-flex flex-column h-100">
+                  <h3>Technology Used</h3>
+                  <span
+                    className={`d-flex flex-column justify-content-center fw-bold h-100 ${styled.text_count_statistics}`}
+                  >
+                    {props.statistics.total_technology_used}
+                  </span>
+                </div>
               </div>
             </div>
           </div>
-          <div className={`card ${styled.card_statistics} mx-3`}>
-            <div className="card-body">
-              <div className="d-flex flex-column h-100">
-                <h3>Work Experience</h3>
-                <span
-                  className={`d-flex flex-column justify-content-center fw-bold h-100 ${styled.text_count_statistics}`}
-                >
-                  {props.statistics.total_work_experience}
-                </span>
+          <div className="col-12 col-md-4">
+            <div className={`card ${styled.card_statistics}`}>
+              <div className="card-body">
+                <div className="d-flex flex-column h-100">
+                  <h3>Work Experience</h3>
+                  <span
+                    className={`d-flex flex-column justify-content-center fw-bold h-100 ${styled.text_count_statistics}`}
+                  >
+                    {props.statistics.total_work_experience}
+                  </span>
+                </div>
               </div>
             </div>
           </div>

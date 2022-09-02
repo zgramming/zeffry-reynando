@@ -17,7 +17,7 @@ const CustomFooter = (props: Param) => {
           href={github}
           rel="noreferrer"
           target="_blank"
-          className={`${styled.icons} mx-5`}
+          className={`${styled.icons}`}
         >
           <i className={`fab fa-github`}></i>
         </a>
@@ -25,7 +25,7 @@ const CustomFooter = (props: Param) => {
           href="#"
           rel="noreferrer"
           target="_blank"
-          className={`${styled.icons} mx-5`}
+          className={`${styled.icons}`}
           onClick={() => window.open(`mailto:${mail}`)}
         >
           <i className={`far fa-envelope`}></i>
@@ -34,7 +34,7 @@ const CustomFooter = (props: Param) => {
           href={telegram}
           rel="noreferrer"
           target="_blank"
-          className={`${styled.icons} mx-5`}
+          className={`${styled.icons}`}
         >
           <i className={`fab fa-telegram`}></i>
         </a>
@@ -42,7 +42,7 @@ const CustomFooter = (props: Param) => {
           href={linkedin}
           rel="noreferrer"
           target="_blank"
-          className={`${styled.icons} mx-5`}
+          className={`${styled.icons}`}
         >
           <i className={`fab fa-linkedin`}></i>
         </a>

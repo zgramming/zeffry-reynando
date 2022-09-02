@@ -8,8 +8,19 @@
 .icons {
   font-size: 40pt;
   color: #6b5b50;
+  margin: 1rem 2rem;
 }
 
 .icons:hover {
   color: #524439;
+}
+
+@media only screen and (max-width: 768px) {
+  .title {
+    font-size: 16pt;
+  }
+  .icons {
+    font-size: 32pt;
+    margin: 1rem 1rem;
+  }
 }

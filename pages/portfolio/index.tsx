@@ -47,7 +47,7 @@ const PortfolioPage = (props: Parameter) => {
   }, [props.portfolio, search, selectedMasterTypeApplication]);
 
   return (
-    <div className={`${styled.layout} px-5`}>
+    <div className={`${styled.layout}`}>
       <div className={`${styled.title} mb-5`}>My Application</div>
 
       <input

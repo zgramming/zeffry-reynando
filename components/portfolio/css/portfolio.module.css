@@ -19,7 +19,7 @@
 }
 
 .layout {
-  margin: 120px auto;
+  margin: 120px 40px;
   text-align: center;
   color: #6b5b50;
   min-height: 100vh;
@@ -57,4 +57,14 @@
   font-size: 40pt;
   font-family: "Maven Pro";
   text-align: center;
+}
+
+@media only screen and (max-width: 768px) {
+  .layout {
+    margin: 120px 16px;
+  }
+
+  .title {
+    font-size: 32pt;
+  }
 }

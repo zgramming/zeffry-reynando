@@ -14,7 +14,7 @@
   line-height: 150%;
 }
 
-.layout_container {
+.layout {
   margin: 120px auto;
   text-align: center;
   color: #6b5b50;
@@ -65,7 +65,6 @@ Statistics
 .card_statistics {
   background-color: #f9f2ed;
   height: 250px;
-  width: 400px;
   box-shadow: 0 0 2px 2px rgba(0, 0, 0, 0.25);
 }
 
@@ -73,4 +72,27 @@ Statistics
   font-weight: bold;
   font-size: 60pt;
   color: #6b5b50;
+}
+
+@media only screen and (max-width: 768px) {
+  .layout {
+    margin: 120px 16px;
+  }
+
+  .title {
+    font-size: 40pt;
+  }
+
+  .subtitle {
+    font-size: 24pt;
+  }
+
+  .description {
+    font-size: 12pt;
+    line-height: 200%;
+  }
+
+  .card_statistics {
+    margin-bottom: 2rem;
+  }
 }

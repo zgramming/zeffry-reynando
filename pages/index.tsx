@@ -23,7 +23,7 @@ const Home = (props: Param) => {
 
   return (
     <>
-      <div className={`${styled.layout_container} px-5`}>
+      <div className={`${styled.layout}`}>
         <div className={`${styled.title}`}>{props.profile.name}</div>
         <div className={`${styled.subtitle} mb-5`}>{props.profile.motto}</div>
         <div

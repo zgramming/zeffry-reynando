@@ -3,6 +3,7 @@ import { GetStaticPaths, GetStaticProps } from "next";
 import Image from "next/image";
 import { ParsedUrlQuery } from "querystring";
 import React from "react";
+import { useMediaQuery } from "react-responsive";
 
 import styled from "../../../components/portfolio_detail/portfolio_detail.module.css";
 import { PortfolioInterface } from "../../../interface/portfolio/portfolio_interface";
@@ -18,25 +19,35 @@ const PortfolioDetailPage = (props: Parameter) => {
     return { __html: description };
   };
 
+  const isMobile = useMediaQuery({ query: "(max-width: 768px)" });
+
   return (
     <div className={`${styled.layout}`}>
       <div className="d-flex flex-column">
         <div className={`${styled.image_banner} mb-5`}>
           <Image
             src={props.portfolio.banner_image}
-            height="100%"
-            width="100%"
+            height={"100%"}
+            width={"100%"}
             alt={`${props.portfolio.title}`}
             layout="fill"
-            objectFit="fill"
+            objectFit="cover"
           />
         </div>
-        <div className="d-flex justify-content-between align-items-center mb-3">
+        <div
+          className={`d-flex ${
+            isMobile
+              ? "flex-column mb-3"
+              : "justify-content-between align-items-center mb-3"
+          }`}
+        >
           <h1 className={`${styled.title}`}>{props.portfolio.title}</h1>
-          <h3>{props.portfolio.type.name}</h3>
+          <span className={`${styled.subtitle_technology}`}>
+            {props.portfolio.type.name}
+          </span>
         </div>
         <h5 className="fw-normal">Technology : </h5>
-        <div className="d-flex flex-wrap mb-5">
+        <div className="d-flex flex-wrap mb-3">
           {props.portfolio.other_technology.map((val) => (
             <span
               key={val.id}
@@ -77,19 +88,20 @@ const PortfolioDetailPage = (props: Parameter) => {
             )}
           </div>
         </div>
-        <div className="d-flex flex-column mb-5">
-          <h3 className="mb-2">Preview Application</h3>
-          <div className="row flex-nowrap overflow-auto">
+        <div className="d-flex flex-column">
+          <h3 className="mb-3">Preview Application</h3>
+          <div className="row">
             {props.portfolio.preview_images?.map((val) => {
               return (
-                <div key={val.id} className={`${styled.image_preview} me-5`}>
+                <div key={val.id} className={`col-6 col-md-4 mb-3`}>
                   <Image
                     src={val.image}
-                    height="100%"
-                    width="100%"
+                    height={"100%"}
+                    width={"100%"}
                     alt={val.image}
-                    layout="fill"
-                    objectFit="fill"
+                    className={`rounded shadow`}
+                    layout="responsive"
+                    objectFit="cover"
                   />
                 </div>
               );

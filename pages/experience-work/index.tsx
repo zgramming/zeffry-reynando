@@ -6,13 +6,15 @@ import React from "react";
 import styled from "../../components/experience-work/css/experience-work.module.css";
 import { WorkExperienceInterface } from "../../interface/work_experience/work_experience_interface";
 
+import { useMediaQuery } from "react-responsive";
+
 type Parameter = {
   workExperience: WorkExperienceInterface[];
   children?: React.ReactNode;
 };
 const ExperienceWorkPage = (props: Parameter) => {
   return (
-    <div className={`${styled.layout} px-5`}>
+    <div className={`${styled.layout}`}>
       <div className={`${styled.title}`}>My Experience Work</div>
       <div className="row">
         {props.workExperience.map((exp, index) => {
@@ -36,26 +38,35 @@ const ExperienceItem = (props: { exp: WorkExperienceInterface }) => {
     const d = date.getDate();
     return `${d} ${month} ${year}`;
   };
+
+  const isMobile = useMediaQuery({ query: "(max-width: 768px)" });
+
   return (
     <div key={props.exp.id} className="col-md-12 mb-5">
-      <div className="d-flex flex-row align-items-start">
-        <div className="me-5">
-          <Image
-            src={props.exp.company_image ?? ""}
-            height={120}
-            width={120}
-            alt={props.exp.company.name}
-            className={"rounded shadow-sm"}
-          />
-        </div>
+      <div
+        className={`d-flex ${
+          isMobile ? "flex-column" : "flex-row align-items-start"
+        }`}
+      >
+        {!isMobile && (
+          <div className="me-md-5">
+            <Image
+              src={props.exp.company_image ?? ""}
+              height={120}
+              width={120}
+              alt={props.exp.company.name}
+              className={"rounded shadow-sm"}
+            />
+          </div>
+        )}
         <div className={`card ${styled.card_company} w-100`}>
           <div className="card-body">
             <div className="d-flex flex-column">
-              <div className="d-flex justify-content-between align-items-center">
+              <div className="d-flex flex-column flex-md-row justify-content-md-between align-items-md-center">
                 <div className={`${styled.name_company} mb-2`}>
                   {props.exp.company.name}
                 </div>
-                <span className={`${styled.duration_job}`}>
+                <span className={`${styled.duration_job} mb-2`}>
                   {`${dateReadable(props.exp.start_date)} - ${dateReadable(
                     props.exp.end_date
                   )}`}
