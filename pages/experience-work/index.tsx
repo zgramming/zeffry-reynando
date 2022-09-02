@@ -91,10 +91,7 @@ const ExperienceItem = (props: { exp: WorkExperienceInterface }) => {
 
 export const getStaticProps: GetStaticProps = async (context) => {
   try {
-    const url =
-      process.env["NODE_ENV"] == "development"
-        ? process.env["BASE_API_LOCALHOST_URL"]
-        : process.env["BASE_API_URL"];
+    const url = process.env["BASE_API_URL"];
 
     const workExperience = await axios.get(`${url}/work-experience`);
     const arrWorkExperience = workExperience.data

@@ -120,10 +120,7 @@ const PortfolioDetailPage = (props: Parameter) => {
 export const getStaticProps: GetStaticProps = async (context) => {
   try {
     const { slug } = context.params as IParams;
-    const url =
-      process.env["NODE_ENV"] == "development"
-        ? process.env["BASE_API_LOCALHOST_URL"]
-        : process.env["BASE_API_URL"];
+    const url = process.env["BASE_API_URL"];
 
     const portfolio = await axios.get(`${url}/portfolio/${slug}`);
     if (!portfolio.data.data) throw "Data tidak ditemukan";
@@ -144,10 +141,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
 };
 
 export const getStaticPaths: GetStaticPaths = async (context) => {
-  const url =
-    process.env["NODE_ENV"] == "development"
-      ? process.env["BASE_API_LOCALHOST_URL"]
-      : process.env["BASE_API_URL"];
+  const url = process.env["BASE_API_URL"];
 
   const portfolio = await axios.get(`${url}/portfolio`);
   const arrPortfolio: PortfolioInterface[] = portfolio.data.data;

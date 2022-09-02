@@ -115,10 +115,7 @@ const PortfolioPage = (props: Parameter) => {
 
 export const getStaticProps: GetStaticProps = async (context) => {
   try {
-    const url =
-      process.env["NODE_ENV"] == "development"
-        ? process.env["BASE_API_LOCALHOST_URL"]
-        : process.env["BASE_API_URL"];
+    const url = process.env["BASE_API_URL"];
 
     const portfolio = await axios.get(`${url}/portfolio`);
     const masterTypeApplication = await axios.get(

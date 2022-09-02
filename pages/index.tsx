@@ -48,10 +48,7 @@ const Home = (props: Param) => {
 
 export const getStaticProps: GetStaticProps = async (context) => {
   try {
-    const url =
-      process.env["NODE_ENV"] == "development"
-        ? process.env["BASE_API_LOCALHOST_URL"]
-        : process.env["BASE_API_URL"];
+    const url = process.env["BASE_API_URL"];
 
     const profile = await axios.get(`${url}/home/profile`);
     const myStatistics = await axios.get(`${url}/home/my_statistic`);
@@ -71,13 +68,5 @@ export const getStaticProps: GetStaticProps = async (context) => {
     return { notFound: true };
   }
 };
-
-// export const getStaticPaths: GetStaticPaths = async () => {
-// 	// ...
-//   }
-
-//   export const getServerSideProps: GetServerSideProps = async (context) => {
-// 	// ...
-//   }
 
 export default Home;
