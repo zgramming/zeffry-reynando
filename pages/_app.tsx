@@ -8,17 +8,17 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "../styles/global.css";
 
 function MyApp({ Component, pageProps }: AppProps) {
-  return (
-    <>
-      <Head>
-        <title>Zeffry Reynando</title>
-      </Head>
-      <NextNProgress />
-      <CustomNavbar />
-      <Component {...pageProps} />
-      <CustomFooter />
-    </>
-  );
+	return (
+		<>
+			<Head>
+				<title>Zeffry Reynando</title>
+			</Head>
+			<NextNProgress />
+			<CustomNavbar />
+			<Component {...pageProps} />
+			<CustomFooter />
+		</>
+	);
 }
 
 export default MyApp;

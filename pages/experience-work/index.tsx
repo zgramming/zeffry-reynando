@@ -9,103 +9,102 @@ import { WorkExperienceInterface } from "../../interface/work_experience/work_ex
 import { useMediaQuery } from "react-responsive";
 
 type Parameter = {
-  workExperience: WorkExperienceInterface[];
-  children?: React.ReactNode;
+	workExperience: WorkExperienceInterface[];
+	children?: React.ReactNode;
 };
 const ExperienceWorkPage = (props: Parameter) => {
-  return (
-    <div className={`${styled.layout}`}>
-      <div className={`${styled.title}`}>My Experience Work</div>
-      <div className="row">
-        {props.workExperience.map((exp, index) => {
-          return <ExperienceItem key={exp.id} exp={exp} />;
-        })}
-      </div>
-    </div>
-  );
+	return (
+		<div className={`${styled.layout}`}>
+			<div className={`${styled.title}`}>My Experience Work</div>
+			<div className="row">
+				{props.workExperience.map((exp, index) => {
+					return <ExperienceItem key={exp.id} exp={exp} />;
+				})}
+			</div>
+		</div>
+	);
 };
 
 const ExperienceItem = (props: { exp: WorkExperienceInterface }) => {
-  const convertDescriptionIntoHtml = (description: string) => {
-    return { __html: description };
-  };
+	const convertDescriptionIntoHtml = (description: string) => {
+		return { __html: description };
+	};
 
-  const dateReadable = (dateString?: string) => {
-    if (!dateString) return "Now";
-    const date = new Date(dateString);
-    const year = date.getFullYear();
-    const month = date.toLocaleString("default", { month: "long" });
-    const d = date.getDate();
-    return `${d} ${month} ${year}`;
-  };
+	const dateReadable = (dateString?: string) => {
+		if (!dateString) return "Now";
+		const date = new Date(dateString);
+		const year = date.getFullYear();
+		const month = date.toLocaleString("default", { month: "long" });
+		const d = date.getDate();
+		return `${d} ${month} ${year}`;
+	};
 
-  const isMobile = useMediaQuery({ query: "(max-width: 768px)" });
+	const isMobile = useMediaQuery({ query: "(max-width: 768px)" });
 
-  return (
-    <div key={props.exp.id} className="col-md-12 mb-5">
-      <div
-        className={`d-flex ${
-          isMobile ? "flex-column" : "flex-row align-items-start"
-        }`}
-      >
-        {!isMobile && (
-          <div className="me-md-5">
-            <Image
-              src={props.exp.company_image ?? ""}
-              height={120}
-              width={120}
-              alt={props.exp.company.name}
-              className={"rounded shadow-sm"}
-            />
-          </div>
-        )}
-        <div className={`card ${styled.card_company} w-100`}>
-          <div className="card-body">
-            <div className="d-flex flex-column">
-              <div className="d-flex flex-column flex-md-row justify-content-md-between align-items-md-center">
-                <div className={`${styled.name_company} mb-2`}>
-                  {props.exp.company.name}
-                </div>
-                <span className={`${styled.duration_job} mb-2`}>
-                  {`${dateReadable(props.exp.start_date)} - ${dateReadable(
-                    props.exp.end_date
-                  )}`}
-                </span>
-              </div>
-              <div className={`${styled.position_company} mb-3`}>
-                {props.exp.job.name}
-              </div>
-              <div
-                className={`${styled.description_company}`}
-                dangerouslySetInnerHTML={convertDescriptionIntoHtml(
-                  props.exp.description
-                )}
-              />
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
+	return (
+		<div key={props.exp.id} className="col-md-12 mb-5">
+			<div
+				className={`d-flex ${isMobile ? "flex-column" : "flex-row align-items-start"
+					}`}
+			>
+				{!isMobile && (
+					<div className="me-md-5">
+						<Image
+							src={props.exp.company_image ?? ""}
+							height={120}
+							width={120}
+							alt={props.exp.company.name}
+							className={"rounded shadow-sm"}
+						/>
+					</div>
+				)}
+				<div className={`card ${styled.card_company} w-100`}>
+					<div className="card-body">
+						<div className="d-flex flex-column">
+							<div className="d-flex flex-column flex-md-row justify-content-md-between align-items-md-center">
+								<div className={`${styled.name_company} mb-2`}>
+									{props.exp.company.name}
+								</div>
+								<span className={`${styled.duration_job} mb-2`}>
+									{`${dateReadable(props.exp.start_date)} - ${dateReadable(
+										props.exp.end_date
+									)}`}
+								</span>
+							</div>
+							<div className={`${styled.position_company} mb-3`}>
+								{props.exp.job.name}
+							</div>
+							<div
+								className={`${styled.description_company}`}
+								dangerouslySetInnerHTML={convertDescriptionIntoHtml(
+									props.exp.description
+								)}
+							/>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	);
 };
 
 export const getStaticProps: GetStaticProps = async (context) => {
-  try {
-    const url = process.env["BASE_API_URL"];
+	try {
+		const url = process.env["BASE_API_URL"];
 
-    const workExperience = await axios.get(`${url}/work-experience`);
-    const arrWorkExperience = workExperience.data
-      .data as WorkExperienceInterface[];
-    return {
-      props: {
-        workExperience: arrWorkExperience,
-      },
-    };
-  } catch (error) {
-    return {
-      notFound: true,
-    };
-  }
+		const workExperience = await axios.get(`${url}/work-experience`);
+		const arrWorkExperience = workExperience.data
+			.data as WorkExperienceInterface[];
+		return {
+			props: {
+				workExperience: arrWorkExperience,
+			},
+		};
+	} catch (error) {
+		return {
+			notFound: true,
+		};
+	}
 };
 
 export default ExperienceWorkPage;

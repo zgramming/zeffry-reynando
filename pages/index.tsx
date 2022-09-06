@@ -62,7 +62,7 @@ export const getStaticProps: GetStaticProps = async (context) => {
 		const profile = await axios.get(`${url}/home/profile`);
 		const myStatistics = await axios.get(`${url}/home/my_statistic`);
 		const mostUsedTechnology = await axios.get(
-			`${url}/home/most_used_technology`
+			`${url}/technology?limit=4`
 		);
 
 		const props: Param = {

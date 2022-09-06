@@ -4,5 +4,16 @@ const RoutePortfolio = "/portfolio";
 const RoutePortfolioDetail = (slug: string) => {
   return `/portfolio/${slug}`;
 };
+const RouteTechnology = "/technology";
+const RouteTechnologyDetail = (id: number) => {
+  return `/technology/${id}`;
+};
 
-export { RouteHome, RouteExperienceWork, RoutePortfolio, RoutePortfolioDetail };
+export {
+  RouteHome,
+  RouteExperienceWork,
+  RoutePortfolio,
+  RoutePortfolioDetail,
+  RouteTechnology,
+  RouteTechnologyDetail,
+};
